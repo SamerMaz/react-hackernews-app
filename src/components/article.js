@@ -11,7 +11,7 @@ const Link = ({url, title}) =>(
 const Article = ({article:{id, by, title, kids, time, url, score}, type}) => {
   return (
     
-    <Card sx={{m:3, bgcolor:'orange'}}>
+    <Card sx={{m:4, width:'70%', bgcolor:'orange'}}>
     <div className="story-title">
       <Link url={url} title={title} />
     </div>
@@ -24,10 +24,7 @@ const Article = ({article:{id, by, title, kids, time, url, score}, type}) => {
         <Link url={`https://news.ycombinator.com/user?id=${by}`} title={by} />
       </span>
       |<span>
-        {/* {new Date(time * 1000).toLocaleDateString('en-US', {
-          hour: 'numeric',
-          minute: 'numeric'
-        })} */}
+
         {timeDifference(time)}
       </span>|
       <span>

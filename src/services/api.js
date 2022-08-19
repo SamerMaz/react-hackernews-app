@@ -10,16 +10,18 @@ export const getStory = async (id) => {
   }
 };
 
-export const getStories = async (type, offset, postsPerPage) => {
+export const getStories = async (type, currentPage, postsPerPage) => {
   try {
     
     const { data: storyIds } = await axios.get(
       `${BASE_API_URL}/${type}stories.json`
     );
     //Promise.all method to make API calls simultaneously for all the story ids.
-    // const stories = await Promise.all(storyIds.slice(0, count).map(getStory));
     if(type==='top'){
-         const stories = await Promise.all(storyIds.slice(offset, postsPerPage).map(getStory));
+        const begin = (currentPage-1)*postsPerPage;
+        const end = begin + postsPerPage
+        console.log(begin, end)
+         const stories = await Promise.all(storyIds.slice(begin, end).map(getStory));
          return stories
     }
     else{
