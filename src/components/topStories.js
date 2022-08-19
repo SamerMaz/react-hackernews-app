@@ -26,28 +26,24 @@ useEffect(()=>{
     setIsLoading(true);
     getStories(top, currentPage, postsPerPage)
         .then((stories)=>{
-            // console.log(stories.length, postsPerPage)
-            setStories(stories);
-            setPageCount(pageCount)
-
-            // setPageCount(Math.ceil(stories.length / postsPerPage))
-            // setCount(count +10)
+            setStories(stories)
+            setPageCount(Math.ceil(stories.length / postsPerPage))
             setIsLoading(false);
         }).catch(()=>{
             setIsLoading(false);
         });
-}, [type]);
-
+}, [type, currentPage,]);
 
 
   const handlePageChange = (e) => {
     const selectedPage = setCurrentPage(e.selected)
     setCurrentPage(selectedPage + 1)
-    setPostPerPage(postsPerPage)
-    setPageCount(pageCount)
+    // setPostPerPage(postsPerPage)
+    // setPageCount(pageCount)
+    setPageCount(Math.ceil(stories.length / postsPerPage))
+
     console.log(e)
   }
-
 
 
   return (
@@ -57,7 +53,7 @@ useEffect(()=>{
       ) : (
         <React.Fragment>
           {stories.map(({ data: article }) => (
-            console.log('sdfasdfasdf', article),
+            // console.log('sdfasdfasdf', article),
             <Article key={article.id} article={article} />
             // JSON.stringify(story)
           ))}
@@ -72,7 +68,7 @@ useEffect(()=>{
         breakLabel="..."
         // forcePage={currentPage}
         // pageCount={10}
-        pageCount={currentPage}
+        pageCount={pageCount}
         renderOnZeroPageCount={null}
         onPageChange={handlePageChange}
         className='pagination'
