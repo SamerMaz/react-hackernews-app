@@ -7,15 +7,28 @@ import Typography from "@mui/material/Typography";
 const Navbar = () => {
   let activeStyle = {
     textDecoration: "none",
-    textDecorationColor: 'red'
   };
   let underline={
-    textDecorationColor: 'white'
+    textDecorationColor: 'white',
+    textColor: 'white'
   }
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" style={{ backgroundColor: "#ff6600" }}>
         <Toolbar>
+        <NavLink
+            to="/"
+            style={{textDecoration:'none'}}
+          >
+            <Typography
+              variant="h4"
+              component="div"
+              sx={{ flexGrow: 1, mr: 2 }}
+              color="black"
+            >
+              Hacker News
+            </Typography>
+          </NavLink>
           <NavLink
             to="/"
             style={({ isActive }) => (isActive ? underline :activeStyle )}

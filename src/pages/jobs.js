@@ -1,8 +1,10 @@
 import React from 'react'
+import ShowArticles from '../components/showArticles'
 
 const Jobs = () => {
+  const type ='job'
   return (
-    <div>Jobs</div>
+    <ShowArticles type={type}/>
   )
 }
 

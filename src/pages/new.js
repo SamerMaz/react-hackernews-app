@@ -1,9 +1,11 @@
 import React from 'react'
+import ShowArticles from '../components/showArticles'
 
-const News = () => {
+const newStories = () => {
+  const type = 'new'
   return (
-    <div>News</div>
+    <ShowArticles type={type}/>
   )
 }
 
-export default News
+export default newStories

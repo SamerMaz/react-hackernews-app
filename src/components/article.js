@@ -8,10 +8,10 @@ const Link = ({url, title}) =>(
   </a>
 )
 
-const Article = ({article:{id, by, title, kids, time, url, score}}) => {
+const Article = ({article:{id, by, title, kids, time, url, score}, type}) => {
   return (
     
-    <Card className="story">
+    <Card sx={{m:3, bgcolor:'orange'}}>
     <div className="story-title">
       <Link url={url} title={title} />
     </div>
@@ -31,10 +31,11 @@ const Article = ({article:{id, by, title, kids, time, url, score}}) => {
         {timeDifference(time)}
       </span>|
       <span>
+        {(type === 'top' || 'new') ? 
         <Link
           url={`https://news.ycombinator.com/item?id=${id}`}
-          title={`${kids && kids.length > 0 ? kids.length + ' comments' : 'discuss'}`}
-        />
+          title={`${kids && kids?.length > 0 ? kids?.length + ' comments' : 'discuss'}`}
+        />: null}
       </span>
     </div>
   </Card>
