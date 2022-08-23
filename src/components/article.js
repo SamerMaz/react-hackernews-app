@@ -26,14 +26,14 @@ const Article = ({article:{id, by, title, kids, time, url, score, type}}) => {
       |<span>
 
         {timeDifference(time)}
-      </span>|
-      <span>
-        {type !=='job' ? 
+      </span>
+      {type !=='job' ?
+      <span>|
+         
         <Link
           url={`https://news.ycombinator.com/item?id=${id}`}
           title={`${kids && kids?.length > 0 ? kids?.length + ' comments' : 'discuss'}`}
-        />: null}
-      </span>
+        /></span>: null}
     </div>
   </Card>
   )
