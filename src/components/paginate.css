@@ -25,6 +25,8 @@
     color: #1c1e29;
     text-decoration: none;
     padding: 5px 12px;
+    cursor: pointer;
+    
 }
 
 .pagination a:hover{

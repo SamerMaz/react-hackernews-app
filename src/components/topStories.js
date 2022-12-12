@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
-import { getStories } from "../services/api";
+import { getStories, getStroyIDS } from "../services/api";
 import Article from "./article";
 import './paginate.css';
 
@@ -15,8 +15,8 @@ const TopStories = ({ type }) => {
   const [stories, setStories ] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
-  const [postsPerPage, setPostPerPage] = useState(10);
-  const [pageCount, setPageCount] = useState(0)
+  const [postsPerPage] = useState(10);
+  const [pageCount, setPageCount] = useState(1)
  
 
 
@@ -24,25 +24,36 @@ const TopStories = ({ type }) => {
 
 useEffect(()=>{
     setIsLoading(true);
+
     getStories(top, currentPage, postsPerPage)
         .then((stories)=>{
+
             setStories(stories)
-            setPageCount(Math.ceil(stories.length / postsPerPage))
+
             setIsLoading(false);
-        }).catch(()=>{
-            setIsLoading(false);
+
+            console.log(currentPage, stories)
+        }).catch((error)=>{
+          console.log(error)
         });
-}, [type, currentPage,]);
+
+getStroyIDS(top).then((stroy)=>{
+  setPageCount(Math.ceil((stroy.length) / postsPerPage))
+
+})
+
+}, [currentPage,postsPerPage]);
 
 
   const handlePageChange = (e) => {
-    const selectedPage = setCurrentPage(e.selected)
+    const selectedPage =(e.selected)
+    // setCurrentPage((x)=>x + selectedPage)
     setCurrentPage(selectedPage + 1)
+    // setPage((prevState) => prevState - 1)
     // setPostPerPage(postsPerPage)
     // setPageCount(pageCount)
-    setPageCount(Math.ceil(stories.length / postsPerPage))
 
-    console.log(e)
+    console.log(selectedPage)
   }
 
 
@@ -53,6 +64,7 @@ useEffect(()=>{
       ) : (
         <React.Fragment>
           {stories.map(({ data: article }) => (
+            // stories &&
             // console.log('sdfasdfasdf', article),
             <Article key={article.id} article={article} />
             // JSON.stringify(story)
@@ -69,6 +81,8 @@ useEffect(()=>{
         // forcePage={currentPage}
         // pageCount={10}
         pageCount={pageCount}
+        pageRangeDisplayed={5}
+        // totalCount={}
         renderOnZeroPageCount={null}
         onPageChange={handlePageChange}
         className='pagination'
